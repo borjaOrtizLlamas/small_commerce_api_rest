@@ -1,25 +1,53 @@
 package com.borja;
 
+import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMethod;
+import com.borja.dto.Client;
+
+
 /**
  * Hello world!
  *
  */
 @RestController
-public class App 
-{
+@RequestMapping("/client")
+public class App {
 
-	  private static final String template = "Hello, %s!";
-	  private final AtomicLong counter = new AtomicLong();
+	private final static Logger LOGGER = Logger.getLogger("bitacora.subnivel.Control");
+	private static final String template = "Hello, %s!";
+	private final AtomicLong counter = new AtomicLong();
 
-	  @RequestMapping("/")
-	  public Dto greeting(@RequestParam(value="name", defaultValue="World") String name) {
-	    return new Dto(counter.incrementAndGet(),
-	              String.format(template, name));
-	  }
-	  
-	  
+	@Autowired
+	AccesToMongo acces;
+
+	@PostMapping
+	@ResponseBody
+	public Boolean createCliend(@RequestBody Client valueOne) {
+		LOGGER.log(Level.INFO, "HELLO WORLD");
+		return acces.insertJson(valueOne);
+	}
+
+	@GetMapping
+	@ResponseBody
+	public List<Client> getCliend() {
+		LOGGER.log(Level.INFO, "HELLO WORLD");
+		return acces.returnClients();
+	}
+
+	@RequestMapping(value  = "/{id}", method = RequestMethod.GET)
+	public Client getCliend(@PathVariable String id) {
+		return acces.returnClient(id);
+	}
+
 }

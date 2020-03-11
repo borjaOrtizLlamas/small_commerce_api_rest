@@ -12,6 +12,8 @@ public class Product implements Serializable{
 
 	String name;
 	String precio;
+	String description;
+
 	public String getName() {
 		return name;
 	}
@@ -24,9 +26,17 @@ public class Product implements Serializable{
 	public void setPrecio(String precio) {
 		this.precio = precio;
 	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
 	@Override
 	public String toString() {
-		return "{\"name\":\"" + name + "\", \"precio\":\"" + precio + "\"}";
+		return "{\"name\":\"" + name + "\", \"precio\":\"" + precio + "\", \"description\":\""+description+"\"}";
 	}
+
+
 	
 }

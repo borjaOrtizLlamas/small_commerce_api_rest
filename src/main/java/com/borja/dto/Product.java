@@ -2,11 +2,6 @@ package com.borja.dto;
 
 import java.io.Serializable;
 
-import org.bson.BsonReader;
-import org.bson.BsonWriter;
-import org.bson.codecs.Codec;
-import org.bson.codecs.DecoderContext;
-import org.bson.codecs.EncoderContext;
 
 public class Product implements Serializable{
 

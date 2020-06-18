@@ -18,7 +18,8 @@ pipeline {
 
         stage('push to repository') {
             steps {
-                sh 	"docker push 005269061637.dkr.ecr.eu-west-1.amazonaws.com/small_comerce_api_rest:$TAG"
+                sh 	"docker tag 005269061637.dkr.ecr.eu-west-1.amazonaws.com/small_comerce_api_rest:$TAG 005269061637.dkr.ecr.eu-west-1.amazonaws.com/small_comerce_api_rest:latest"
+                sh 	"docker push 005269061637.dkr.ecr.eu-west-1.amazonaws.com/small_comerce_api_rest:$TAG && docker push 005269061637.dkr.ecr.eu-west-1.amazonaws.com/small_comerce_api_rest:latest"
             }
         }
     }

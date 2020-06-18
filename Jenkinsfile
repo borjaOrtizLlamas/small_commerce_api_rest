@@ -8,7 +8,8 @@ pipeline {
         }
 
         stage('build') {
-            steps {
+            dir('envs') {
+                git credentialsId: 'github_credential', url: 'https://github.com/borjaOrtizLlamas/shop_infraestucture_generator_vars.git'
                 sh 	"docker build --no-cache --build-arg TAG=$TAG . -t 005269061637.dkr.ecr.eu-west-1.amazonaws.com/small_comerce_api_rest:$TAG"
             }
         }

@@ -1,5 +1,6 @@
 package com.borja;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Level;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMethod;
 import com.borja.dto.Client;
+import com.borja.dto.Product;
 
 /**
  * Hello world!
@@ -57,6 +59,18 @@ public class App {
 	public Boolean editCliend(@RequestBody Client valueOne) throws Exception {
 		LOGGER.log(Level.SEVERE, "This application has error updating the clients");
 		throw new Exception("Exeption updating clients");
+	}
+	
+	@RequestMapping(value = "/prueba", method = RequestMethod.GET)
+	public Client prueba(@PathVariable String id) {
+		Client cli = new Client(); 
+		cli.setName("probando");
+		List<Product> producs = new ArrayList<Product>();
+		Product pro = new Product(); 
+		pro.setDescription("descricion");
+		producs.add(pro); 
+		cli.setProducts(producs);
+		return cli; 
 	}
 
 }

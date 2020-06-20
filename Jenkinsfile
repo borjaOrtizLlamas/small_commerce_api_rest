@@ -1,5 +1,11 @@
 pipeline {
    agent any
+
+    parameters {
+        string(name: 'Greeting', defaultValue: 'Hello', description: 'How should I greet the world?')
+    }
+
+
    	stages {
         stage('build  proyect with JUnit') {
             steps {
@@ -12,11 +18,7 @@ pipeline {
                 dir('dockerconf') {
                     sh "cp ../target/gs-rest-service.jar ./"
                     git credentialsId: 'github_credential', url: 'https://github.com/borjaOrtizLlamas/small_comerce_api_rest_container'
-                    if (env.branch == 'master') {
-                        sh "docker build --no-cache  . -t 005269061637.dkr.ecr.eu-west-1.amazonaws.com/small_comerce_api_rest:${BUILD_NUMBER}"
-                    } else {
-                        sh "docker build --no-cache  . -t 005269061637.dkr.ecr.eu-west-1.amazonaws.com/small_comerce_api_rest:${BUILD_NUMBER}-beta"
-                    }
+                    sh "docker build --no-cache  . -t 005269061637.dkr.ecr.eu-west-1.amazonaws.com/small_comerce_api_rest:${BUILD_NUMBER}"
                 }
             }
         }

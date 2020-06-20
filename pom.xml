@@ -6,8 +6,9 @@
 
 	<groupId>org.springframework</groupId>
 	<artifactId>gs-rest-service</artifactId>
-	<version>RELEASE</version>
-
+	<version>1.0.0</version>
+	<packaging>jar</packaging>
+	
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
@@ -15,12 +16,12 @@
 	</parent>
 
 	<dependencies>
-	    <dependency>
-	        <groupId>org.mongodb</groupId>
-	        <artifactId>mongo-java-driver</artifactId>
-	        <version>3.5.0</version>
-	    </dependency> 
-	   	<dependency>
+		<dependency>
+			<groupId>org.mongodb</groupId>
+			<artifactId>mongo-java-driver</artifactId>
+			<version>3.5.0</version>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
@@ -41,6 +42,7 @@
 	</properties>
 
 	<build>
+        <finalName>${project.artifactId}</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

@@ -6,7 +6,10 @@ pipeline {
                 sh 	"aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 005269061637.dkr.ecr.eu-west-1.amazonaws.com/small_comerce_api_rest"
             }
         }
-
+//codigo, pruebas(cucumber), release
+//pipline de compilación y otro de despligue 
+// CI y CD
+// 
         stage('build') {
             steps {
                 dir('envs') {

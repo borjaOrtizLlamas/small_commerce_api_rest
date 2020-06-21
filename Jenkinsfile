@@ -1,3 +1,5 @@
+def variablesDef = null
+
 pipeline {
    agent any
 
@@ -12,13 +14,17 @@ pipeline {
             steps {
                 dir('dockerconf') {
                     script {
+                        if (env.BRANCH_NAME == 'master') {
+                            variablesDef = env.BUILD_NUMBER + 
+
+                        } else { 
+                            variablesDef = env.BUILD_NUMBER + '-beta'
+                        }
                         sh "cp ../target/gs-rest-service.jar ./"
                         git credentialsId: 'github_credential', url: 'https://github.com/borjaOrtizLlamas/small_comerce_api_rest_container'
-                        if (env.BRANCH_NAME == 'master') {
-                            sh "docker build . -t 005269061637.dkr.ecr.eu-west-1.amazonaws.com/small_comerce_api_rest:${BUILD_NUMBER}"
-                        } else {    
-                            sh "docker build . -t 005269061637.dkr.ecr.eu-west-1.amazonaws.com/small_comerce_api_rest:${BUILD_NUMBER}-BETA"
-                        }
+                            sh "docker build . -t 005269061637.dkr.ecr.eu-west-1.amazonaws.com/small_comerce_api_rest:${variablesDef}"
+                        
+
                     }
                 }
             }
@@ -32,8 +38,8 @@ pipeline {
 
         stage('push to repository') {
             steps {
-                sh 	"docker tag 005269061637.dkr.ecr.eu-west-1.amazonaws.com/small_comerce_api_rest:$TAG 005269061637.dkr.ecr.eu-west-1.amazonaws.com/small_comerce_api_rest:latest"
-                sh 	"docker push 005269061637.dkr.ecr.eu-west-1.amazonaws.com/small_comerce_api_rest:$TAG && docker push 005269061637.dkr.ecr.eu-west-1.amazonaws.com/small_comerce_api_rest:latest"
+                sh 	"docker tag 005269061637.dkr.ecr.eu-west-1.amazonaws.com/small_comerce_api_rest:${variablesDef} 005269061637.dkr.ecr.eu-west-1.amazonaws.com/small_comerce_api_rest:latest"
+                sh 	"docker push 005269061637.dkr.ecr.eu-west-1.amazonaws.com/small_comerce_api_rest:${variablesDef} && docker push 005269061637.dkr.ecr.eu-west-1.amazonaws.com/small_comerce_api_rest:latest"
             }
         }
     }

@@ -28,33 +28,28 @@ public class App {
 	private static final String template = "Hello, %s!";
 	private final AtomicLong counter = new AtomicLong();
 
-//	@Autowired
-//	AccesToMongo acces;
+	@Autowired
+	AccesToMongo acces;
 
 	@PostMapping
 	@ResponseBody
-	public /* Boolean */ String createCliend(@RequestBody Client valueOne) {
+	public Boolean  createCliend(@RequestBody Client valueOne) {
 		LOGGER.log(Level.INFO, "create clients");
-		//return acces.insertJson(valueOne);
-		return "POST METHOD"; 
+		return acces.insertJson(valueOne);
 	}
 
 	@GetMapping
 	@ResponseBody
-	public /*List<Client> */ String getClients() {
-		LOGGER.log(Level.INFO, "get  clients we ");
-		//return acces.returnClients();
-		return "GET METHOD we "; 
+	public List<Client>  getClients() {
+		LOGGER.log(Level.INFO, "get  clients");
+		return acces.returnClients();
 
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public Client getCliend(@PathVariable String id) {
 		LOGGER.log(Level.INFO, "get client " + id);
-		//return acces.returnClient(id);
-		Client cli = new Client(); 		
-		cli.setName(id);
-		return cli; 
+		return acces.returnClient(id);
 	}
 
 	@PutMapping

@@ -15,7 +15,7 @@ pipeline {
                 dir('dockerconf') {
                     script {
                         if (env.BRANCH_NAME == 'master') {
-                            variablesDef = env.BUILD_NUMBER + 
+                            variablesDef = env.BUILD_NUMBER
 
                         } else { 
                             variablesDef = env.BUILD_NUMBER + '-beta'

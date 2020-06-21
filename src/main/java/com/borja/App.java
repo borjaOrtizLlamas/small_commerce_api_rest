@@ -42,9 +42,9 @@ public class App {
 	@GetMapping
 	@ResponseBody
 	public /*List<Client> */ String getClients() {
-		LOGGER.log(Level.INFO, "get  clients");
+		LOGGER.log(Level.INFO, "get  clients we ");
 		//return acces.returnClients();
-		return "GET METHOD"; 
+		return "GET METHOD we "; 
 
 	}
 

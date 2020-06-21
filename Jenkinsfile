@@ -15,9 +15,9 @@ pipeline {
                         sh "cp ../target/gs-rest-service.jar ./"
                         git credentialsId: 'github_credential', url: 'https://github.com/borjaOrtizLlamas/small_comerce_api_rest_container'
                         if (env.BRANCH_NAME == 'master') {
-                            sh "docker build --no-cache  . -t 005269061637.dkr.ecr.eu-west-1.amazonaws.com/small_comerce_api_rest:${BUILD_NUMBER}"
+                            sh "docker build . -t 005269061637.dkr.ecr.eu-west-1.amazonaws.com/small_comerce_api_rest:${BUILD_NUMBER}"
                         } else {    
-                            sh "docker build --no-cache  . -t 005269061637.dkr.ecr.eu-west-1.amazonaws.com/small_comerce_api_rest:${BUILD_NUMBER}-BETA"
+                            sh "docker build . -t 005269061637.dkr.ecr.eu-west-1.amazonaws.com/small_comerce_api_rest:${BUILD_NUMBER}-BETA"
                         }
                     }
                 }
@@ -30,11 +30,11 @@ pipeline {
             }
         }
 
-//        stage('push to repository') {
-//            steps {
-//                sh 	"docker tag 005269061637.dkr.ecr.eu-west-1.amazonaws.com/small_comerce_api_rest:$TAG 005269061637.dkr.ecr.eu-west-1.amazonaws.com/small_comerce_api_rest:latest"
-//                sh 	"docker push 005269061637.dkr.ecr.eu-west-1.amazonaws.com/small_comerce_api_rest:$TAG && docker push 005269061637.dkr.ecr.eu-west-1.amazonaws.com/small_comerce_api_rest:latest"
-//            }
-//        }
+        stage('push to repository') {
+            steps {
+                sh 	"docker tag 005269061637.dkr.ecr.eu-west-1.amazonaws.com/small_comerce_api_rest:$TAG 005269061637.dkr.ecr.eu-west-1.amazonaws.com/small_comerce_api_rest:latest"
+                sh 	"docker push 005269061637.dkr.ecr.eu-west-1.amazonaws.com/small_comerce_api_rest:$TAG && docker push 005269061637.dkr.ecr.eu-west-1.amazonaws.com/small_comerce_api_rest:latest"
+            }
+        }
     }
 }

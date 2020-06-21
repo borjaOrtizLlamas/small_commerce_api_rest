@@ -24,7 +24,7 @@ import java.util.logging.Logger;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.springframework.stereotype.Service;
-//@Service
+@Service
 public class AccesToMongo {
 	
     private final static Logger LOGGER = Logger.getLogger("bitacora.subnivel.Control");

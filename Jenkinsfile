@@ -16,13 +16,12 @@ pipeline {
                     script {
                         if (env.BRANCH_NAME == 'master') {
                             variablesDef = env.BUILD_NUMBER
-
                         } else { 
                             variablesDef = env.BUILD_NUMBER + '-beta'
                         }
                         sh "cp ../target/gs-rest-service.jar ./"
                         git credentialsId: 'github_credential', url: 'https://github.com/borjaOrtizLlamas/small_comerce_api_rest_container'
-                            sh "docker build . -t 005269061637.dkr.ecr.eu-west-1.amazonaws.com/small_comerce_api_rest:${variablesDef}"
+                        sh "docker build . -t 005269061637.dkr.ecr.eu-west-1.amazonaws.com/small_comerce_api_rest:${variablesDef}"
                         
 
                     }

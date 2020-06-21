@@ -1,6 +1,5 @@
 package com.borja;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Level;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMethod;
 import com.borja.dto.Client;
-import com.borja.dto.Product;
 
 /**
  * Hello world!
@@ -30,28 +28,33 @@ public class App {
 	private static final String template = "Hello, %s!";
 	private final AtomicLong counter = new AtomicLong();
 
-	@Autowired
-	AccesToMongo acces;
+//	@Autowired
+//	AccesToMongo acces;
 
 	@PostMapping
 	@ResponseBody
-	public Boolean  createCliend(@RequestBody Client valueOne) {
+	public /* Boolean */ String createCliend(@RequestBody Client valueOne) {
 		LOGGER.log(Level.INFO, "create clients");
-		return acces.insertJson(valueOne);
+		//return acces.insertJson(valueOne);
+		return "POST METHOD"; 
 	}
 
 	@GetMapping
 	@ResponseBody
-	public List<Client>  getClients() {
+	public /*List<Client> */ String getClients() {
 		LOGGER.log(Level.INFO, "get  clients");
-		return acces.returnClients();
+		//return acces.returnClients();
+		return "GET METHOD"; 
 
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public Client getCliend(@PathVariable String id) {
 		LOGGER.log(Level.INFO, "get client " + id);
-		return acces.returnClient(id);
+		//return acces.returnClient(id);
+		Client cli = new Client(); 		
+		cli.setName(id);
+		return cli; 
 	}
 
 	@PutMapping
@@ -59,18 +62,6 @@ public class App {
 	public Boolean editCliend(@RequestBody Client valueOne) throws Exception {
 		LOGGER.log(Level.SEVERE, "This application has error updating the clients");
 		throw new Exception("Exeption updating clients");
-	}
-	
-	@RequestMapping(value = "/prueba", method = RequestMethod.GET)
-	public Client prueba(@PathVariable String id) {
-		Client cli = new Client(); 
-		cli.setName("probando");
-		List<Product> producs = new ArrayList<Product>();
-		Product pro = new Product(); 
-		pro.setDescription("descricion");
-		producs.add(pro); 
-		cli.setProducts(producs);
-		return cli; 
 	}
 
 }

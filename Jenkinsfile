@@ -12,7 +12,9 @@ pipeline {
             steps {
                 dir('dockerconf') {
                     script {
+                        sh "hola ${env.BRANCH_NAME}"
                         if (env.BRANCH_NAME != 'master') {
+                            
                             sh "cp ../target/gs-rest-service.jar ./"
                             git credentialsId: 'github_credential', url: 'https://github.com/borjaOrtizLlamas/small_comerce_api_rest_container'
                             sh "docker build --no-cache  . -t 005269061637.dkr.ecr.eu-west-1.amazonaws.com/small_comerce_api_rest:${BUILD_NUMBER}"

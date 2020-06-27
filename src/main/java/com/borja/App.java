@@ -48,7 +48,7 @@ public class App {
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public Client getCliend(@PathVariable String id) {
-		LOGGER.log(Level.INFO, "get client " + id);
+		LOGGER.log(Level.INFO, "get client  --> " + id);
 		return acces.returnClient(id);
 	}
 

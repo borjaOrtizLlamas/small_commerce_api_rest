@@ -55,8 +55,7 @@ public class App {
 	@PutMapping
 	@ResponseBody
 	public Boolean editCliend(@RequestBody Client valueOne) throws Exception {
-		LOGGER.log(Level.SEVERE, "This application has error updating the clients");
-		throw new Exception("Exeption updating clients");
+		return true;
 	}
 
 }

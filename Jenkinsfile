@@ -13,7 +13,7 @@ pipeline {
             steps {
                 dir('dockerconf') {
                     script {
-                        if (env.BRANCH_NAME != 'master') {
+                        if (env.BRANCH_NAME == 'master') {
                             variablesDef = env.BUILD_NUMBER + '-pro'
                         } else {
                             variablesDef = env.BUILD_NUMBER + '-' + env.BRANCH_NAME

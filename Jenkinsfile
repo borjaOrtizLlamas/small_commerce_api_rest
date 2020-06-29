@@ -13,10 +13,10 @@ pipeline {
             steps {
                 dir('dockerconf') {
                     script {
-                        if (env.BRANCH_NAME == 'master') {
-                            variablesDef = env.BUILD_NUMBER
+                        if (env.BRANCH_NAME != 'master') {
+                            variablesDef = env.BUILD_NUMBER + '-pro'
                         } else {
-                            variablesDef = env.BUILD_NUMBER + '-beta'
+                            variablesDef = env.BUILD_NUMBER + '-' + env.BRANCH_NAME
                         }
                         sh "cp ../target/gs-rest-service.jar ./"
                         git credentialsId: 'github_credential', url: 'https://github.com/borjaOrtizLlamas/small_comerce_api_rest_container'

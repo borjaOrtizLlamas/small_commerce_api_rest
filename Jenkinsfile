@@ -40,7 +40,7 @@ pipeline {
                                 error("Build failed because the data is not returned in the correct way")
                             }
                         } catch (exc) {
-                            throw
+                            throw exc
                         }
                         
                     }

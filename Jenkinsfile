@@ -33,8 +33,7 @@ pipeline {
                             sh "sed '1,35 s/change_tag/${variablesDef}/g' docker-compose > docker-compose.yml"
                             sh "docker-compose up -d"
                             sh "curl -d '@mock.json' -H 'Content-Type: application/json' -X POST http://localhost:90/client"
-                            sh "curl http://localhost:90/client >> returnGet"
-                            def versionReadfile = readFile "returnGet"
+                            def versionReadfile = sh "curl http://localhost:90/client"
                             def versionReadfileMock = readFile "mock.json"
                             if(versionReadfile != versionReadfileMock){
                                 error("Build failed because the data is not returned in the correct way")

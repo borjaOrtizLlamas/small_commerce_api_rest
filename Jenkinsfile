@@ -25,6 +25,23 @@ pipeline {
                 }
             }
         }
+        stage('docker - test') {
+            steps {
+                dir('dockerconf') {
+                    script {
+                        sh "sed '1,35 s/change_tag/${variablesDef}/g' docker-compose > docker-compose.yml"
+                        sh "docker-compose up -d"
+                        sh "curl -d '@mock.data' -X POST http://localhost:90/client"
+                        sh "curl http://localhost:90/client >> returnGet"
+                        def versionReadfile = readFile "returnGet"
+                        def versionReadfileMock = readFile "mock.data"
+                        if(versionReadfile != versionReadfileMock){
+                            error("Build failed because the data is not returned in the correct way")
+                        }
+                    }
+                }
+            }
+        }
 
         stage('login') {
             steps {

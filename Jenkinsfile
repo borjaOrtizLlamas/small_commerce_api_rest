@@ -33,7 +33,7 @@ pipeline {
                             sh "sed '1,35 s/change_tag/${variablesDef}/g' docker-compose > docker-compose.yml"
                             sh "docker-compose up -d"
                             def versionReadfile = httpRequest url:'http://localhost:90/client'
-                            echo versionReadfile
+                            sh "echo  aqui -- ${variablesDef}"
                             def requestBodyMock = readFile "mock.json"
                             httpRequest url:'http://localhost:90/client', httpMode: 'POST', acceptType:'APPLICATION_JSON', requestBody: requestBodyMock
                             if(versionReadfile != requestBodyMock){

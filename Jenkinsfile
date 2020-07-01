@@ -32,7 +32,7 @@ pipeline {
                         try {
                             sh "sed '1,35 s/change_tag/${variablesDef}/g' docker-compose > docker-compose.yml"
                             sh "docker-compose up -d"
-                            sh "curl -d '@mock.json' -H 'Content-Type: application/json' -X POST http://localhost:90/client"
+                            //sh "curl -d '@mock.json' -H 'Content-Type: application/json' -X POST http://localhost:90/client"
                             def versionReadfile = sh "curl http://localhost:90/client"
                             def versionReadfileMock = readFile "mock.json"
                             if(versionReadfile != versionReadfileMock){

@@ -27,15 +27,20 @@ pipeline {
         }
         stage('docker - test') {
             steps {
+
+                dir('containerTest') {
+                    dir('testBuild') {
+                        git credentialsId: 'github_credential', url: 'https://github.com/borjaOrtizLlamas/test-proyect', branch: env.BRANCH_NAME
+                        sh 	"mvn clean install" 
+                    }
+                    git credentialsId: 'github_credential', url: 'https://github.com/borjaOrtizLlamas/test_container'
+                    sh "docker build . -t test_api_rest:latest"
+                }
+
                 dir('dockerconf') {
                     script {
                         try {
                             sh "sed '1,35 s/change_tag/${variablesDef}/g' docker-compose > docker-compose.yml"
-                            dir('containerTest') {
-                                sh "cp ../../pruebas.json ./"
-                                git credentialsId: 'github_credential', url: 'https://github.com/borjaOrtizLlamas/test_container'
-                                sh "docker build . -t test_api_rest:latest"
-                            }
                             sh "docker-compose up -d"
                         } catch (exc) {
                             throw exc

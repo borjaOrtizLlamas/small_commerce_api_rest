@@ -31,18 +31,17 @@ pipeline {
                     script {
                         try {
                             sh "sed '1,35 s/change_tag/${variablesDef}/g' docker-compose > docker-compose.yml"
-                            sh "docker-compose up -d"
-                            def versionReadfile = sh "curl 'http://localhost:90/client'"
-                            sh "echo  aqui -- ${versionReadfile}"
-                            def requestBodyMock = readFile "mock.json"
-                            httpRequest url:'http://localhost:90/client', httpMode: 'POST', acceptType:'APPLICATION_JSON', requestBody: requestBodyMock
-                            if(versionReadfile != requestBodyMock){
-                                error("Build failed because the data is not returned in the correct way")
+                            dir('containerTest') {
+                                sh "cp ../../prueba.json ./"
+                                git credentialsId: 'github_credential', url: 'https://github.com/borjaOrtizLlamas/test_container'
+                                sh "docker build . -t test_api_rest:latest"
                             }
+                            sh "docker-compose up -d"
                         } catch (exc) {
                             throw exc
                         } finally {
-
+                            sh "docker-compose kill"
+                            sh "docker-compose rm"
                         }
                         
                     }

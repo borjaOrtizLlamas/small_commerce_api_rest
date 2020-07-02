@@ -1,0 +1,13 @@
+{
+	"name":"xe60693",
+	"products":[{
+		"name": "mueble", 
+		"precio": "21311"
+	},{
+		"name": "casa", 
+		"precio": "21311"
+	},{
+		"name": "pedro", 
+		"precio": "21311"
+	}]
+}

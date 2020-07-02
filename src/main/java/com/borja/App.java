@@ -38,13 +38,13 @@ public class App {
 		return acces.insertJson(valueOne);
 	}
 
-	@GetMapping
-	@ResponseBody
-	public List<Client>  getClients() {
-		LOGGER.log(Level.INFO, "get  clients");
-		return acces.returnClients();
+//	@GetMapping
+//	@ResponseBody
+//	public List<Client>  getClients() {
+//		LOGGER.log(Level.INFO, "get  clients");
+//		return acces.returnClients();
 
-	}
+//	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public Client getCliend(@PathVariable String id) {

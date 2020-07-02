@@ -41,7 +41,7 @@ pipeline {
                             throw exc
                         } finally {
                             sh "docker-compose kill"
-                            sh "docker-compose rm"
+                            sh "docker-compose rm -f"
                         }
                         
                     }

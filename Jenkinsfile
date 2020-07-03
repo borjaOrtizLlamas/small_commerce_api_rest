@@ -32,9 +32,6 @@ pipeline {
                         try {
                             sh "sed '1,35 s/change_tag/${variablesDef}/g' docker-compose > docker-compose.yml"
                             sh "docker-compose up -d"
-                            sh "curl -d '{\"name\":\"xe60693\",\"products\":[{\"name\": \"mueble\",\"precio\": \"21311\"}]}' -H \"Content-Type: application/json\" -X POST http://0.0.0.0:90/client"
-                            //httpRequest httpMode: 'POST',url: 'http://localhost:90/client', requestBody: '{"name":"xe60693","products":[{"name": "mueble","precio": "21311"},{"name": "casa", "precio": "21311"},{"name": "pedro", "precio": "21311"}]}'
-                            //contentType :'APPLICATION_JSON'
                         } catch (exc) {
                             throw exc
                         } finally {

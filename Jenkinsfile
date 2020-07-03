@@ -32,6 +32,7 @@ pipeline {
                     dir('testBuild') {
                         git credentialsId: 'github_credential', url: 'https://github.com/borjaOrtizLlamas/test-proyect', branch: env.BRANCH_NAME
                         sh 	"mvn clean install" 
+                        sh "cp target/pruebas.jar ../"
                     }
                     git credentialsId: 'github_credential', url: 'https://github.com/borjaOrtizLlamas/test_container'
                     sh "docker build . -t test_api_rest:latest"

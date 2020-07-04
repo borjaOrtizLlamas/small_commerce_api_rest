@@ -1,4 +1,5 @@
 def variablesDef = null
+def ramaPruebas = null
 
 pipeline {
    agent any
@@ -32,6 +33,15 @@ pipeline {
                         try {
                             sh "sed '1,35 s/change_tag/${variablesDef}/g' docker-compose > docker-compose.yml"
                             sh "docker-compose up -d"
+                            dir('executionHttp'){
+                                if (env.BRANCH_NAME != 'master'){
+                                    ramaPruebas = 'develop'
+                                } else {
+                                    ramaPruebas = 'master'
+                                }
+                                git credentialsId: 'github_credential', url: 'https://github.com/borjaOrtizLlamas/test-proyect.git', branch : ramaPruebas
+                                sh "mvn clean install && mvn exec:java -Dexec.mainClass=\"com.tmf.pruebas.App\""
+                            }
                         } catch (exc) {
                             throw exc
                         } finally {
@@ -42,13 +52,11 @@ pipeline {
                 }
             }
         }
-
         stage('login') {
             steps {
                 sh 	"aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 005269061637.dkr.ecr.eu-west-1.amazonaws.com/small_comerce_api_rest"
             }
         }
-
         stage('push to repository') {
             steps {
                 script {
@@ -58,7 +66,6 @@ pipeline {
                         sh  "docker push 005269061637.dkr.ecr.eu-west-1.amazonaws.com/small_comerce_api_rest:latest"
                     }
                     echo "the container has  the tag:  ${variablesDef}"
-
                 }
             }
         }

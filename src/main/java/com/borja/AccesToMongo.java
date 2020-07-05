@@ -1,13 +1,13 @@
 package com.borja;	
 
 import static com.mongodb.client.model.Filters.*;
-import com.borja.dto.Client;
-import com.borja.dto.Product;
 import com.mongodb.BasicDBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoDatabase;
+import com.tfm.dto.Client;
+import com.tfm.dto.Product;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;

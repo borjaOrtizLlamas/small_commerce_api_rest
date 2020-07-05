@@ -7,6 +7,10 @@ pipeline {
    	stages {
         stage('build  proyect with JUnit') {
             steps {
+                dir('dto') {
+                    git credentialsId: 'github_credential', url: 'https://github.com/borjaOrtizLlamas/small_commerce_api_rest_dto', branch: env.BRANCH_NAME
+                    sh 	"mvn clean install" 
+                }
                 sh 	"mvn clean install" 
             }
         }
@@ -34,12 +38,7 @@ pipeline {
                             sh "sed '1,35 s/change_tag/${variablesDef}/g' docker-compose > docker-compose.yml"
                             sh "docker-compose up -d"
                             dir('executionHttp'){
-                                if (env.BRANCH_NAME != 'master'){
-                                    ramaPruebas = 'develop'
-                                } else {
-                                    ramaPruebas = 'master'
-                                }
-                                git credentialsId: 'github_credential', url: 'https://github.com/borjaOrtizLlamas/test-proyect.git', branch : ramaPruebas
+                                git credentialsId: 'github_credential', url: 'https://github.com/borjaOrtizLlamas/test-proyect.git', branch : env.BRANCH_NAME
                                 sh "mvn clean install && mvn exec:java -Dexec.mainClass=\"com.tmf.pruebas.App\""
                             }
                         } catch (exc) {

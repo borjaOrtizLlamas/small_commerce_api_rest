@@ -49,7 +49,7 @@ public class AccesToMongo {
 		JSONObject jsonObject = new JSONObject(client); 
 		System.out.println("---------------" + jsonObject.toString());
 		LOGGER.log(Level.INFO, "---------" + jsonObject.toString());
-        docu = docu.parse(jsonObject.toString());  
+        docu = docu.parse(client.toString());  
 		LOGGER.log(Level.INFO, "Adding document to mogodb: " + docu);
 		collection.insertOne(docu);
 		LOGGER.log(Level.INFO, "Adding client finished");

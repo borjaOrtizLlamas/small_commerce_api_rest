@@ -23,6 +23,7 @@ import java.util.logging.Logger;
 
 import org.bson.Document;
 import org.bson.conversions.Bson;
+import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 @Service
 public class AccesToMongo {
@@ -44,8 +45,9 @@ public class AccesToMongo {
 	
 	public boolean insertJson(Client client) {
         LOGGER.log(Level.INFO, "Adding client");
-        Document docu = new Document(); 
-        docu = docu.parse(client.toString());  
+        Document docu = new Document();
+		JSONObject jsonObject = new JSONObject(client); 
+        docu = docu.parse(jsonObject.toString());  
 		LOGGER.log(Level.INFO, "Adding document to mogodb: " + docu);
 		collection.insertOne(docu);
 		LOGGER.log(Level.INFO, "Adding client finished");

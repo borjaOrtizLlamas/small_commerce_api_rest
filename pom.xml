@@ -17,6 +17,18 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20190722</version>
+		</dependency>
+	
+		<dependency>
+			<groupId>com.tmf</groupId>
+			<artifactId>dto</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+	
+		<dependency>
 			<groupId>org.mongodb</groupId>
 			<artifactId>mongo-java-driver</artifactId>
 			<version>3.5.0</version>

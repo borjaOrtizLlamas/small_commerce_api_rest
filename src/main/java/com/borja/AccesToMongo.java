@@ -66,7 +66,7 @@ public class AccesToMongo {
 					for(Document doc : docus) {
 						pro.setName((String)doc.get("name"));
 						pro.setPrecio((String)doc.get("precio"));
-						pro.setPrecio((String)doc.get("description"));
+						pro.setDescription((String)doc.get("description"));
 						abb.add(pro);
 					}
 				}
@@ -89,6 +89,7 @@ public class AccesToMongo {
 				for(Document doc : docus) {
 					pro.setName((String)doc.get("name"));
 					pro.setPrecio((String)doc.get("precio"));
+					pro.setDescription((String)doc.get("description"));
 					abb.add(pro);
 				}
 			}

@@ -69,7 +69,7 @@ public class AccesToMongo {
 					Product pro = new Product();  
 					for(Document doc : docus) {
 						pro.setName((String)doc.get("name"));
-						pro.setPrecio((String)doc.get("precio"));
+						pro.setPrice((String)doc.get("price"));
 						pro.setDescription((String)doc.get("description"));
 						abb.add(pro);
 					}
@@ -92,7 +92,7 @@ public class AccesToMongo {
 				Product pro = new Product();  
 				for(Document doc : docus) {
 					pro.setName((String)doc.get("name"));
-					pro.setPrecio((String)doc.get("precio"));
+					pro.setPrice((String)doc.get("price"));
 					pro.setDescription((String)doc.get("description"));
 					abb.add(pro);
 				}

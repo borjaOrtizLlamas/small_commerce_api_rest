@@ -7,10 +7,6 @@ pipeline {
    	stages {
         stage('build  proyect with JUnit') {
             steps {
-                dir('dto') {
-                    git credentialsId: 'github_credential', url: 'https://github.com/borjaOrtizLlamas/small_commerce_api_rest_dto', branch: env.BRANCH_NAME
-                    sh 	"mvn clean install" 
-                }
                 sh 	"mvn clean install" 
             }
         }

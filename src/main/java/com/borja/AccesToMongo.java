@@ -6,6 +6,7 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
 import com.tfm.dto.Client;
 import com.tfm.dto.Product;
 import com.mongodb.client.FindIterable;
@@ -46,11 +47,10 @@ public class AccesToMongo {
 		if(!existsInBBDD(client.getName())) {
 			throw new Exception("client not exits"); 
 		}
-	    Document searchQuery = new Document();
-	    searchQuery.append("name", client.getName());
-		collection.deleteOne(searchQuery);
+	    Bson deleteFilter = Filters.eq("name", client.getName());
+	    collection.deleteOne(deleteFilter);
 		insertJson(client);
-		return false; 
+		return true; 
 	}
 	
 	public boolean insertJson(Client client) throws Exception {

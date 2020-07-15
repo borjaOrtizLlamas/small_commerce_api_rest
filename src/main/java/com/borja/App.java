@@ -53,12 +53,17 @@ public class App {
 		LOGGER.log(Level.INFO, "get client  --> " + id);
 		return acces.returnClient(id);
 	}
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public boolean deleteCliend(@PathVariable String id) throws Exception {
+		return acces.deleteClient(id);
+	}
 
 	@PutMapping
 	@ResponseBody
 	public Boolean editCliend(@RequestBody Client valueOne) throws Exception {
 		LOGGER.log(Level.SEVERE, "UPDATE clients are failling");
-		throw new Exception("errrrrrrrrror"); 
+		throw new Exception("error - update flow have not been developed"); 
 	}
 
 }

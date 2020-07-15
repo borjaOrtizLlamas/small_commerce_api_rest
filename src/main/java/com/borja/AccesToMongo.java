@@ -115,7 +115,14 @@ public class AccesToMongo {
 		return cli; 
 	}
 
-	
+	public boolean deleteClient(String name) throws Exception {
+		if(!existsInBBDD(name)) {
+			throw new Exception("the client do not exits"); 
+		} 
+	    Bson deleteFilter = Filters.eq("name", name);
+	    collection.deleteOne(Filters.and(deleteFilter));
+	    return true; 
+	}
 	private boolean existsInBBDD(String client) {
 		List<Client> allClient = returnClients(); 
 		for (Client cli : allClient) {

@@ -48,7 +48,7 @@ public class AccesToMongo {
 			throw new Exception("client not exits"); 
 		}
 	    Bson deleteFilter = Filters.eq("name", client.getName());
-	    collection.deleteOne(deleteFilter);
+	    collection.deleteOne(Filters.and(deleteFilter));
 		insertJson(client);
 		return true; 
 	}

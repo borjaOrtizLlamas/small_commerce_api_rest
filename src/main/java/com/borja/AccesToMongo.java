@@ -41,10 +41,24 @@ public class AccesToMongo {
 		database = mongoClient.getDatabase("admin");
 		collection = database.getCollection("clients");
 	}
+//	
+//	public boolean update(Client client) throws Exception {
+//		if(!existsInBBDD(client.getName())) {
+//			throw new Exception("client not exits"); 
+//		}
+//	    Document searchQuery = new Document();
+//	    searchQuery.append("name", client.getName());
+//	    
+//		collection.deleteOne(searchQuery); 
+//		
+//		return false; 
+//	}
 	
-	
-	public boolean insertJson(Client client) {
-        LOGGER.log(Level.INFO, "Adding client");
+	public boolean insertJson(Client client) throws Exception {
+		if(existsInBBDD(client.getName())) {
+			throw new Exception("client exits"); 
+		} 
+		LOGGER.log(Level.INFO, "Adding client");
         Document docu = new Document();
 		JSONObject jsonObject = new JSONObject(client); 
 		System.out.println("---------------" + jsonObject.toString());
@@ -102,4 +116,14 @@ public class AccesToMongo {
 		return cli; 
 	}
 
+	
+	private boolean existsInBBDD(String client) {
+		List<Client> allClient = returnClients(); 
+		for (Client cli : allClient) {
+			if (cli.getName().equals(client)) return true; 
+		}
+		
+		
+		return false; 
+	}
 }

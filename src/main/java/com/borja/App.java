@@ -35,7 +35,7 @@ public class App {
 
 	@PostMapping
 	@ResponseBody
-	public Boolean  createCliend(@RequestBody Client valueOne) {
+	public Boolean  createCliend(@RequestBody Client valueOne) throws Exception {
 		LOGGER.log(Level.INFO, "create clients");
 		return acces.insertJson(valueOne);
 	}

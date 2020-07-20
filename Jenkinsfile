@@ -38,7 +38,7 @@ pipeline {
                             sh "sed '1,35 s/change_tag/${variablesDef}/g' docker-compose > docker-compose.yml"
                             sh "docker-compose up -d"
                             dir('executionHttp'){
-                                git credentialsId: 'github_credential', url: 'https://github.com/borjaOrtizLlamas/test-proyect.git', branch : env.ramaPruebas
+                                git credentialsId: 'github_credential', url: 'https://github.com/borjaOrtizLlamas/test-proyect.git', branch : ramaPruebas
                                 sh "mvn clean install && mvn exec:java -Dexec.mainClass=\"com.tmf.pruebas.App\""
                             }
                         } catch (exc) {

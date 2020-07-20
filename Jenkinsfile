@@ -1,5 +1,6 @@
 def variablesDef = null
 def ramaPruebas = null
+def stringchanged = null
 
 pipeline {
    agent any
@@ -17,7 +18,8 @@ pipeline {
                         if (env.BRANCH_NAME == 'master') {
                             variablesDef = env.BUILD_NUMBER + '-pro'
                         } else {
-                            variablesDef = env.BUILD_NUMBER + '-' + env.BRANCH_NAME
+                            stringchanged = env.BRANCH_NAME.replace("/", "-")
+                            variablesDef = env.BUILD_NUMBER + '-' + stringchanged
                         }
                         sh "cp ../target/small_commerce_api.jar ./"
                         git credentialsId: 'github_credential', url: 'https://github.com/borjaOrtizLlamas/small_comerce_api_rest_container'

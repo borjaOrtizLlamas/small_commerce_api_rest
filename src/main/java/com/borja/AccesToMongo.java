@@ -72,6 +72,7 @@ public class AccesToMongo {
 		for (Document document : documents) {
 			Client cli = new Client(); 
 			cli.setName(document.getString("name"));
+			cli.setPhone(document.getString("phone"));
 			List<ArrayList<Document>>  ob = (ArrayList<ArrayList<Document>>) document.get("products"); 
 			if(ob != null) { 
 				List<Product> abb = new ArrayList<Product>();
@@ -108,6 +109,7 @@ public class AccesToMongo {
 		Document document = collection.find(eq("name",name)).first(); 
 		Client cli = new Client(); 
 		cli.setName(document.getString("name"));
+		cli.setPhone(document.getString("phone"));
 		List<ArrayList<Document>>  ob = (ArrayList<ArrayList<Document>>) document.get("products"); 
 		if(ob != null) { 
 			List<Product> abb = new ArrayList<Product>();
@@ -117,6 +119,7 @@ public class AccesToMongo {
 					pro.setName((String)doc.get("name"));
 					pro.setPrice((Double)doc.get("price"));
 					pro.setDescription((String)doc.get("description"));
+					
 					abb.add(pro);
 				}
 			}

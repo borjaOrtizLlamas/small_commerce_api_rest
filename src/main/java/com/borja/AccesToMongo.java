@@ -1,7 +1,6 @@
 package com.borja;	
 
 import static com.mongodb.client.model.Filters.*;
-import com.mongodb.BasicDBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
@@ -11,14 +10,10 @@ import com.tfm.dto.Client;
 import com.tfm.dto.Product;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoCursor;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -26,6 +21,7 @@ import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 @Service
 public class AccesToMongo {
 	
@@ -68,6 +64,7 @@ public class AccesToMongo {
 		LOGGER.log(Level.INFO, "Adding client finished");
 		return true; 
 	}
+	
 
 	public List<Client> returnClients() {
 		List<Client> clients = new ArrayList<>(); 
@@ -82,7 +79,7 @@ public class AccesToMongo {
 					Product pro = new Product();  
 					for(Document doc : docus) {
 						pro.setName((String)doc.get("name"));
-						pro.setPrice((String)doc.get("price"));
+						pro.setPrice((Double) doc.get("price"));
 						pro.setDescription((String)doc.get("description"));
 						abb.add(pro);
 					}
@@ -94,7 +91,20 @@ public class AccesToMongo {
 		return clients;
 	}
 
-	public Client returnClient(String name) {
+	public boolean addProductInClient(String id, List<Product> products ) throws Exception {
+		Client cli = returnClient(id);
+		cli.getProducts().addAll(products); 
+		deleteClient(id); 
+		insertJson(cli); 
+		return true; 
+	}
+
+	
+	public Client returnClient(String name) throws Exception {
+		if(!existsInBBDD(name)) {
+			throw new Exception("client not exits"); 
+		}
+
 		Document document = collection.find(eq("name",name)).first(); 
 		Client cli = new Client(); 
 		cli.setName(document.getString("name"));
@@ -105,7 +115,7 @@ public class AccesToMongo {
 				Product pro = new Product();  
 				for(Document doc : docus) {
 					pro.setName((String)doc.get("name"));
-					pro.setPrice((String)doc.get("price"));
+					pro.setPrice((Double)doc.get("price"));
 					pro.setDescription((String)doc.get("description"));
 					abb.add(pro);
 				}
@@ -128,8 +138,6 @@ public class AccesToMongo {
 		for (Client cli : allClient) {
 			if (cli.getName().equals(client)) return true; 
 		}
-		
-		
 		return false; 
 	}
 }

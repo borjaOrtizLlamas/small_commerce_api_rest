@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tfm.dto.Client;
+import com.tfm.dto.Product;
 
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -49,11 +50,17 @@ public class App {
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public Client getCliend(@PathVariable String id) {
+	public Client getCliend(@PathVariable String id) throws Exception {
 		LOGGER.log(Level.INFO, "get client  --> " + id);
 		return acces.returnClient(id);
 	}
 	
+	@RequestMapping(value = "/{id}", method = RequestMethod.POST)
+	public boolean addProduct(@PathVariable String id,@RequestBody List<Product> products) throws Exception {
+		LOGGER.log(Level.INFO, "get client  --> " + id);
+		return acces.addProductInClient(id,products);
+	}
+
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public boolean deleteCliend(@PathVariable String id) throws Exception {
 		return acces.deleteClient(id);

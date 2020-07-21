@@ -94,7 +94,9 @@ public class AccesToMongo {
 
 	public boolean addProductInClient(String id, List<Product> products ) throws Exception {
 		Client cli = returnClient(id);
-		cli.getProducts().addAll(products); 
+		for(Product product : products) {
+			cli.getProducts().add(product);
+		}
 		deleteClient(id); 
 		insertJson(cli); 
 		return true; 

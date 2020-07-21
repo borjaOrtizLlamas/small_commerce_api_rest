@@ -1,5 +1,6 @@
 def variablesDef = null
 def ramaPruebas = null
+def stringchanged = null
 
 pipeline {
    agent any
@@ -16,8 +17,11 @@ pipeline {
                     script {
                         if (env.BRANCH_NAME == 'master') {
                             variablesDef = env.BUILD_NUMBER + '-pro'
+                            ramaPruebas = 'master'
                         } else {
-                            variablesDef = env.BUILD_NUMBER + '-' + env.BRANCH_NAME
+                            stringchanged = env.BRANCH_NAME.replace("/", "-")
+                            variablesDef = env.BUILD_NUMBER + '-' + stringchanged
+                            ramaPruebas = 'develop'
                         }
                         sh "cp ../target/small_commerce_api.jar ./"
                         git credentialsId: 'github_credential', url: 'https://github.com/borjaOrtizLlamas/small_comerce_api_rest_container'
@@ -34,7 +38,7 @@ pipeline {
                             sh "sed '1,35 s/change_tag/${variablesDef}/g' docker-compose > docker-compose.yml"
                             sh "docker-compose up -d"
                             dir('executionHttp'){
-                                git credentialsId: 'github_credential', url: 'https://github.com/borjaOrtizLlamas/test-proyect.git', branch : env.BRANCH_NAME
+                                git credentialsId: 'github_credential', url: 'https://github.com/borjaOrtizLlamas/test-proyect.git', branch : ramaPruebas
                                 sh "mvn clean install && mvn exec:java -Dexec.mainClass=\"com.tmf.pruebas.App\""
                             }
                         } catch (exc) {

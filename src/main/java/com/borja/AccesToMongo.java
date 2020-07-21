@@ -94,11 +94,17 @@ public class AccesToMongo {
 
 	public boolean addProductInClient(String id, List<Product> products ) throws Exception {
 		Client cli = returnClient(id);
+		LOGGER.log(Level.INFO, "el cliente para anadir es este --> "  + cli.toString());
+
 		for(Product product : products) {
 			cli.getProducts().add(product);
 		}
+		LOGGER.log(Level.INFO, "el cliente con los productos añadidos es este --> "  + cli.toString());
 		deleteClient(id); 
+		LOGGER.log(Level.INFO, "cliente eliminado --> "  + cli.toString());
 		insertJson(cli); 
+		LOGGER.log(Level.INFO, "insertado");
+
 		return true; 
 	}
 
@@ -135,6 +141,8 @@ public class AccesToMongo {
 			throw new Exception("the client do not exits"); 
 		} 
 	    Bson deleteFilter = Filters.eq("name", name);
+		LOGGER.log(Level.INFO, "eliminando cliente --> "  + name);
+
 	    collection.deleteOne(Filters.and(deleteFilter));
 	    return true; 
 	}

@@ -73,12 +73,13 @@ public class AccesToMongo {
 			Client cli = new Client(); 
 			cli.setName(document.getString("name"));
 			cli.setPhone(document.getString("phone"));
+			LOGGER.log(Level.INFO, "errorrrr" + document.get("products") );	
 			List<ArrayList<Document>>  ob = (ArrayList<ArrayList<Document>>) document.get("products"); 
 			if(ob != null) { 
 				List<Product> abb = new ArrayList<Product>();
 				for (List<Document> docus : ob) {
-					Product pro = new Product();  
 					for(Document doc : docus) {
+						Product pro = new Product();  
 						pro.setName((String)doc.get("name"));
 						pro.setPrice((Double) doc.get("price"));
 						pro.setDescription((String)doc.get("description"));
@@ -113,7 +114,6 @@ public class AccesToMongo {
 		if(!existsInBBDD(name)) {
 			throw new Exception("client not exits"); 
 		}
-
 		Document document = collection.find(eq("name",name)).first(); 
 		Client cli = new Client(); 
 		cli.setName(document.getString("name"));
@@ -122,12 +122,11 @@ public class AccesToMongo {
 		if(ob != null) { 
 			List<Product> abb = new ArrayList<Product>();
 			for (List<Document> docus : ob) {
-				Product pro = new Product();  
 				for(Document doc : docus) {
+					Product pro = new Product();  
 					pro.setName((String)doc.get("name"));
 					pro.setPrice((Double)doc.get("price"));
 					pro.setDescription((String)doc.get("description"));
-					
 					abb.add(pro);
 				}
 			}

@@ -8,6 +8,7 @@ public class Client implements Serializable{
 	
 	String name; 
 	String phone; 
+	String surname;
 	List<Product> products;
 	
 	public String getName() {
@@ -32,9 +33,15 @@ public class Client implements Serializable{
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+	public String getSurname() {
+		return surname;
+	}
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
 	@Override
 	public String toString() {
-		return "{\"name\":\"" + name + "\", \"phone\": \""+ phone+"\" ,\"products\":[" + products + "]}";
+		return "{\"name\":\"" + name + "\", \"phone\": \""+ phone+"\" , \"surname :\" \" "+surname+"\" ,\"products\":[" + products + "]}";
 	}
 
 	

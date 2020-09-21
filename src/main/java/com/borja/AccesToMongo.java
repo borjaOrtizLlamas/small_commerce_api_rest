@@ -73,6 +73,7 @@ public class AccesToMongo {
 			Client cli = new Client(); 
 			cli.setName(document.getString("name"));
 			cli.setPhone(document.getString("phone"));
+			cli.setSurname(document.getString("surname"));
 			LOGGER.log(Level.INFO, "errorrrr" + document.get("products") );	
 			List<ArrayList<Document>>  ob = (ArrayList<ArrayList<Document>>) document.get("products"); 
 			if(ob != null) { 
@@ -118,6 +119,7 @@ public class AccesToMongo {
 		Client cli = new Client(); 
 		cli.setName(document.getString("name"));
 		cli.setPhone(document.getString("phone"));
+		cli.setSurname(document.getString("surname"));
 		List<ArrayList<Document>>  ob = (ArrayList<ArrayList<Document>>) document.get("products"); 
 		if(ob != null) { 
 			List<Product> abb = new ArrayList<Product>();

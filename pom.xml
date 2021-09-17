@@ -17,6 +17,11 @@
 
 	<dependencies>
 		<dependency>
+		  <groupId>software.amazon.awssdk</groupId>
+		  <artifactId>aws-sdk-java</artifactId>
+		  <version>2.17.40</version>
+		</dependency>	
+		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
 			<version>20190722</version>
@@ -40,6 +45,27 @@
 			<artifactId>json-path</artifactId>
 			<scope>test</scope>
 		</dependency>
+		 <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>dynamodb-enhanced</artifactId>
+            <version>2.17.39</version>
+        </dependency>
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>dynamodb</artifactId>
+    		<version>2.17.39</version>            
+        </dependency>
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>sns</artifactId>
+    		<version>2.17.39</version>            
+        </dependency>
+		<dependency>
+		    <groupId>com.amazonaws</groupId>
+		    <artifactId>aws-java-sdk</artifactId>
+		    <version>1.12.68</version>
+		</dependency>
+        
 	</dependencies>
 
 	<properties>

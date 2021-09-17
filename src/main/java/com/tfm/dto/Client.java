@@ -3,6 +3,7 @@ package com.tfm.dto;
 
 import java.io.Serializable;
 import java.util.List;
+import com.tfm.dto.Product;
 
 public class Client implements Serializable{
 	

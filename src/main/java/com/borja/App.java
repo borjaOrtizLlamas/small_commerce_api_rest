@@ -32,44 +32,44 @@ public class App {
 	private final AtomicLong counter = new AtomicLong();
 
 	@Autowired
-	AccesToMongo acces;
+	AccesToDynamoDB acces;
 
 	@PostMapping
 	@ResponseBody
 	public Boolean  createCliend(@RequestBody Client valueOne) throws Exception {
 		LOGGER.log(Level.INFO, "create clients");
-		return acces.insertJson(valueOne);
+		return acces.createClient(valueOne); 
 	}
 
-	@GetMapping
-	@ResponseBody
-	public List<Client>  getClients() {
-		LOGGER.log(Level.INFO, "get  clients");
-		return acces.returnClients();
-
-	}
-
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public Client getCliend(@PathVariable String id) throws Exception {
-		LOGGER.log(Level.INFO, "get client  --> " + id);
-		return acces.returnClient(id);
-	}
-	
-	@RequestMapping(value = "/{id}", method = RequestMethod.POST)
-	public boolean addProduct(@PathVariable String id,@RequestBody List<Product> products) throws Exception {
-		LOGGER.log(Level.INFO, "get client  --> " + id);
-		return acces.addProductInClient(id,products);
-	}
-
-	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public boolean deleteCliend(@PathVariable String id) throws Exception {
-		return acces.deleteClient(id);
-	}
-
-	@PutMapping
-	@ResponseBody
-	public Boolean editCliend(@RequestBody Client valueOne) throws Exception {
-		return acces.update(valueOne); 
-	}
+//	@GetMapping
+//	@ResponseBody
+//	public List<Client>  getClients() {
+//		LOGGER.log(Level.INFO, "get  clients");
+//		return acces.returnClients();
+//
+//	}
+//
+//	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+//	public Client getCliend(@PathVariable String id) throws Exception {
+//		LOGGER.log(Level.INFO, "get client  --> " + id);
+//		return acces.returnClient(id);
+//	}
+//	
+//	@RequestMapping(value = "/{id}", method = RequestMethod.POST)
+//	public boolean addProduct(@PathVariable String id,@RequestBody List<Product> products) throws Exception {
+//		LOGGER.log(Level.INFO, "get client  --> " + id);
+//		return acces.addProductInClient(id,products);
+//	}
+//
+//	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+//	public boolean deleteCliend(@PathVariable String id) throws Exception {
+//		return acces.deleteClient(id);
+//	}
+//
+//	@PutMapping
+//	@ResponseBody
+//	public Boolean editCliend(@RequestBody Client valueOne) throws Exception {
+//		return acces.update(valueOne); 
+//	}
 
 }

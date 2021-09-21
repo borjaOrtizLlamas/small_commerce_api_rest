@@ -37,22 +37,24 @@ public class AccesToDynamoDB {
 	
     private final static Logger LOGGER = Logger.getLogger("bitacora.subnivel.Control");
     private final String tableName = "nombreTabla";
-    
+    private DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder().dynamoDbClient(getClient()).build();
+	private DynamoDbTable<Client> clientsTable = enhancedClient.table(tableName, TableSchema.fromBean(Client.class));
+
 	public AccesToDynamoDB() {
 	}
 	
     public boolean createClient(Client client) {
     	try {
-    		DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder().dynamoDbClient(getClient()).build();
-	    	DynamoDbTable<Client> clientsTable = enhancedClient.table(tableName, TableSchema.fromBean(Client.class));
-	    	clientsTable.putItem(client);
+    		clientsTable.putItem(client);
 	    	return true;
     	} catch (DynamoDbException e) {
-	        System.err.println(e.getMessage());
-	        System.exit(1);
+    		LOGGER.log(Level.SEVERE, e.getMessage());
+    		e.getStackTrace();     		
 	        throw e; 
     	}
     }
+	
+    
 	
 
     private DynamoDbClient getClient() {

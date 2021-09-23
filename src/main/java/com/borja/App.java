@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tfm.dto.Client;
-import com.tfm.dto.Product;
 
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -41,35 +40,34 @@ public class App {
 		return acces.createClient(valueOne); 
 	}
 
-//	@GetMapping
-//	@ResponseBody
-//	public List<Client>  getClients() {
-//		LOGGER.log(Level.INFO, "get  clients");
-//		return acces.returnClients();
-//
-//	}
-//
-//	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-//	public Client getCliend(@PathVariable String id) throws Exception {
-//		LOGGER.log(Level.INFO, "get client  --> " + id);
-//		return acces.returnClient(id);
-//	}
-//	
-//	@RequestMapping(value = "/{id}", method = RequestMethod.POST)
-//	public boolean addProduct(@PathVariable String id,@RequestBody List<Product> products) throws Exception {
-//		LOGGER.log(Level.INFO, "get client  --> " + id);
-//		return acces.addProductInClient(id,products);
-//	}
-//
-//	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-//	public boolean deleteCliend(@PathVariable String id) throws Exception {
-//		return acces.deleteClient(id);
-//	}
-//
-//	@PutMapping
-//	@ResponseBody
-//	public Boolean editCliend(@RequestBody Client valueOne) throws Exception {
-//		return acces.update(valueOne); 
-//	}
+	@GetMapping
+	@ResponseBody
+	public List<Client>  getClients() {
+		LOGGER.log(Level.INFO, "get  clients");
+		return acces.getAllClient();
+
+	}
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public Client getCliend(@PathVariable String id) throws Exception {
+		LOGGER.log(Level.INFO, "get client  --> " + id);
+		Client client = new Client();
+		client.setName(id);; 
+		return acces.getClient(client);
+	}
+	
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public boolean deleteCliend(@PathVariable String id) throws Exception {
+		Client client = new Client();
+		client.setName(id);; 
+		return acces.deleteClient(client);
+	}
+
+	@PutMapping
+	@ResponseBody
+	public Boolean editCliend(@RequestBody Client valueOne) throws Exception {
+		return acces.updateClient(valueOne); 
+	}
 
 }

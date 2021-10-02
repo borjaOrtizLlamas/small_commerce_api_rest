@@ -24,7 +24,7 @@ public class AccesToDynamoDB {
 	
     Region region = Region.EU_WEST_1; 
     private final static Logger LOGGER = Logger.getLogger("bitacora.subnivel.Control");
-    private final String tableName = "nombreTabla";
+    private final String tableName = "dababase-proyect";
     DynamoDbClient ddb = DynamoDbClient.builder().credentialsProvider(EnvironmentVariableCredentialsProvider.create()).region(region).build();
     DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder().dynamoDbClient(getClient()).build();
     DynamoDbTable<Client> clientsTable = enhancedClient.table(tableName, TableSchema.fromBean(Client.class));
